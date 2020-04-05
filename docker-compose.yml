@@ -9,11 +9,11 @@ services:
       - 443:443
     network_mode: bridge
     volumes:
-      - conf:/etc/nginx/conf.d
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - dhparam:/etc/nginx/dhparam
-      - certs:/etc/nginx/certs:ro
+      - /apps/nginx/conf:/etc/nginx/conf.d
+      - /apps/nginx/vhost:/etc/nginx/vhost.d
+      - /apps/nginx/html:/usr/share/nginx/html
+      - /apps/nginx/dhparam:/etc/nginx/dhparam
+      - /apps/nginx/certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
     environment:
       - PUID=998
@@ -25,7 +25,7 @@ services:
     volumes_from:
       - nginx-proxy
     volumes:
-      - certs:/etc/nginx/certs:rw
+      - /apps/nginx/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - DEFAULT_EMAIL=ssl@shuffman.com
@@ -46,9 +46,3 @@ services:
       - VIRTUAL_PORT=8080
       - PUID=998
       - PGID=998
-volumes:
-  conf: /apps/nginx/conf
-  vhost: /apps/nginx/vhost
-  html: /apps/nginx/html
-  dhparam: /apps/nginx/dhparam
-  certs:  /apps/nginx/certs
