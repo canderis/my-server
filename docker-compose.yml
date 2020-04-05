@@ -35,7 +35,7 @@ services:
     container_name: jenkins-c
     image: jenkins/jenkins:lts
     ports:
-      - 8080:8080
+      - 8070:8080
       - 50000:50000
     volumes:
       - /apps/jenkins:/var/jenkins_home
@@ -43,6 +43,6 @@ services:
     environment:
       - VIRTUAL_HOST=jenkins.shuffman.dev
       - LETSENCRYPT_HOST=jenkins.shuffman.dev
-      - VIRTUAL_PORT=8080
+      - VIRTUAL_PORT=8070
       - PUID=998
       - PGID=998
