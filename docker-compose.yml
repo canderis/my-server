@@ -4,7 +4,6 @@ version: '2'
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
-    container_name: nginx-proxy
     ports:
       - 80:80
       - 443:443
@@ -21,7 +20,6 @@ services:
 
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: nginx-proxy-letsencrypt
     volumes_from:
       - nginx-proxy
     volumes:
@@ -33,7 +31,6 @@ services:
       - PGID=99
 
   jenkins:
-    container_name: jenkins
     image: jenkins/jenkins:lts
     volumes:
       - /apps/jenkins_home:/var/jenkins_home
@@ -44,7 +41,6 @@ services:
       - PGID=998
 
   nginx:
-    container_name: jenkins-nginx
     image: nginx
     links:
       - jenkins
