@@ -37,8 +37,8 @@ services:
     image: jenkins/jenkins:lts
     volumes:
       - /apps/jenkins_home:/var/jenkins_home
-    ports:
-      - 8080:8080
+    expose:
+      - 8080
     environment:
       - PUID=998
       - PGID=998
