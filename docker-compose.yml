@@ -2,6 +2,30 @@
 version: '2'
 
 services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    volumes:
+      - /apps/jenkins_home:/var/jenkins_home
+    expose:
+      - 8080
+    environment:
+      - PUID=998
+      - PGID=998
+
+  nginx:
+    image: nginx
+    links:
+      - jenkins
+    expose:
+      - 80
+    volumes:
+      - ./etc/nginx/conf.d/:/etc/nginx/conf.d/
+    environment:
+      - VIRTUAL_HOST=jenkins.shuffman.dev
+      - LETSENCRYPT_HOST=jenkins.shuffman.dev
+      - PUID=998
+      - PGID=998
+
   nginx-proxy:
     image: jwilder/nginx-proxy
     ports:
@@ -29,27 +53,3 @@ services:
       - DEFAULT_EMAIL=ssl@shuffman.com
       - PUID=998
       - PGID=99
-
-  jenkins:
-    image: jenkins/jenkins:lts
-    volumes:
-      - /apps/jenkins_home:/var/jenkins_home
-    expose:
-      - 8080
-    environment:
-      - PUID=998
-      - PGID=998
-
-  nginx:
-    image: nginx
-    links:
-      - jenkins
-    expose:
-      - 80
-    volumes:
-      - ./etc/nginx/conf.d/:/etc/nginx/conf.d/
-    environment:
-      - VIRTUAL_HOST=jenkins.shuffman.dev
-      - LETSENCRYPT_HOST=jenkins.shuffman.dev
-      - PUID=998
-      - PGID=998
