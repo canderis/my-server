@@ -36,7 +36,7 @@ services:
     container_name: jenkins-c
     image: jenkins/jenkins:lts
     volumes:
-      - './jenkins_home:/var/jenkins_home'
+      - '/apps/jenkins_home:/var/jenkins_home'
     ports:
       - "8080"
     environment:
