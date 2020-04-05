@@ -47,7 +47,7 @@ services:
     container_name: jenkins-nginx
     image: nginx
     links:
-      - jenkins
+      - jenkins-c
     volumes:
       - "./etc/nginx/conf.d/:/etc/nginx/conf.d/"
     environment:
