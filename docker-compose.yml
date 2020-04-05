@@ -13,6 +13,9 @@ services:
       - /etc/nginx/vhost.d
       - /usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - PUID=998
+      - PGID=998
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: nginx-proxy-letsencrypt
@@ -24,6 +27,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - DEFAULT_EMAIL=ssl@shuffman.com
+      - PUID=998
+      - PGID=998
   jenkins:
     container_name: jenkins-c
     image: jenkins/jenkins:lts
@@ -37,3 +42,5 @@ services:
       - VIRTUAL_HOST=jenkins.shuffman.dev
       - LETSENCRYPT_HOST=jenkins.shuffman.dev
       - VIRTUAL_PORT=8080
+      - PUID=998
+      - PGID=998
