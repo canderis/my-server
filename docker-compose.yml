@@ -18,7 +18,7 @@ services:
     environment:
       - PUID=998
       - PGID=998
-    network_mode: bridge
+
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: nginx-proxy-letsencrypt
@@ -30,8 +30,7 @@ services:
     environment:
       - DEFAULT_EMAIL=ssl@shuffman.com
       - PUID=998
-      - PGID=998
-    network_mode: bridge
+      - PGID=99
 
   jenkins:
     container_name: jenkins
@@ -43,7 +42,6 @@ services:
     environment:
       - PUID=998
       - PGID=998
-    network_mode: bridge
 
   nginx:
     container_name: jenkins-nginx
@@ -59,4 +57,3 @@ services:
       - LETSENCRYPT_HOST=jenkins.shuffman.dev
       - PUID=998
       - PGID=998
-    network_mode: bridge
