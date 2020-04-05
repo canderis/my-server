@@ -20,7 +20,7 @@ services:
       - nginx-proxy
     network_mode: bridge
     volumes:
-      - /Users/scott/Documents/apps/certs:/etc/nginx/certs:rw
+      - /apps/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - DEFAULT_EMAIL=ssl@shuffman.com
@@ -31,7 +31,7 @@ services:
       - 8080:8080
       - 50000:50000
     volumes:
-      - /Users/scott/Documents/apps/jenkins:/var/jenkins_home
+      - /apps/jenkins:/var/jenkins_home
     restart: unless-stopped
     environment:
       - VIRTUAL_HOST=jenkins.shuffman.dev
