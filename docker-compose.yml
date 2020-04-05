@@ -32,7 +32,7 @@ services:
       - PUID=998
       - PGID=998
 
-  jenkins:
+  jenkins-c:
     container_name: jenkins-c
     image: jenkins/jenkins:lts
     volumes:
