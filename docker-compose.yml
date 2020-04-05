@@ -50,6 +50,8 @@ services:
     image: nginx
     links:
       - jenkins
+    expose:
+      - 80
     volumes:
       - ./etc/nginx/conf.d/:/etc/nginx/conf.d/
     environment:
