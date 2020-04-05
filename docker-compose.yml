@@ -7,7 +7,6 @@ services:
     ports:
       - 80:80
       - 443:443
-    network_mode: bridge
     volumes:
       - /apps/nginx/conf:/etc/nginx/conf.d
       - /apps/nginx/vhost:/etc/nginx/vhost.d
@@ -21,7 +20,6 @@ services:
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: nginx-proxy-letsencrypt
-    network_mode: bridge
     volumes_from:
       - nginx-proxy
     volumes:
@@ -36,9 +34,9 @@ services:
     container_name: jenkins-c
     image: jenkins/jenkins:lts
     volumes:
-      - '/apps/jenkins_home:/var/jenkins_home'
+      - /apps/jenkins_home:/var/jenkins_home
     ports:
-      - "8080"
+      - 8080
     environment:
       - PUID=998
       - PGID=998
@@ -49,7 +47,7 @@ services:
     links:
       - jenkins-c
     volumes:
-      - "./etc/nginx/conf.d/:/etc/nginx/conf.d/"
+      - ./etc/nginx/conf.d/:/etc/nginx/conf.d/
     environment:
       - VIRTUAL_HOST=jenkins.shuffman.dev
       - LETSENCRYPT_HOST=jenkins.shuffman.dev
