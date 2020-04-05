@@ -1,3 +1,4 @@
+
 version: '2'
 
 services:
@@ -7,7 +8,6 @@ services:
     ports:
       - 80:80
       - 443:443
-    network_mode: bridge
     volumes:
       - /apps/nginx/conf:/etc/nginx/conf.d
       - /apps/nginx/vhost:/etc/nginx/vhost.d
@@ -21,7 +21,6 @@ services:
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: nginx-proxy-letsencrypt
-    network_mode: bridge
     volumes_from:
       - nginx-proxy
     volumes:
@@ -31,18 +30,27 @@ services:
       - DEFAULT_EMAIL=ssl@shuffman.com
       - PUID=998
       - PGID=998
-  jenkins:
+
+  jenkins-c:
     container_name: jenkins-c
     image: jenkins/jenkins:lts
-    ports:
-      - 8070:8080
-      - 50000:50000
     volumes:
-      - /apps/jenkins:/var/jenkins_home
-    restart: unless-stopped
+      - /apps/jenkins_home:/var/jenkins_home
+    ports:
+      - 8080
+    environment:
+      - PUID=998
+      - PGID=998
+
+  nginx:
+    container_name: jenkins-nginx
+    image: nginx
+    links:
+      - jenkins-c
+    volumes:
+      - ./etc/nginx/conf.d/:/etc/nginx/conf.d/
     environment:
       - VIRTUAL_HOST=jenkins.shuffman.dev
       - LETSENCRYPT_HOST=jenkins.shuffman.dev
-      - VIRTUAL_PORT=8070
       - PUID=998
       - PGID=998
